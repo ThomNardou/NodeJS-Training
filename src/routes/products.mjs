@@ -16,7 +16,7 @@ productsRouter.get("/:id", (req, res) => {
 
   for(let i = 0; i <products.length; i++) {
     if (products[i].id == productID) {
-      product = products[i].id
+      product = products[i]
       break;
     }
   }
