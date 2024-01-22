@@ -4,6 +4,26 @@ import { success, getUniqueId } from "./helper.mjs";
 
 const productsRouter = express();
 
+productsRouter.get("/", (req, res) => {
+  const message = "La liste de produit à été récuperer";
+
+  res.json(success(message, products));
+});
+
+productsRouter.get("/:id", (req, res) => {
+  const productID = req.params.id;
+  let product;
+
+  for(let i = 0; i <products.length; i++) {
+    if (products[i].id == productID) {
+      product = products[i].id
+      break;
+    }
+  }
+
+  const message = `Le produit dont l'id vaut ${productID} à bien été trouvé son nom est ${product.name}`;
+  res.json(success(message, product));
+});
 
 productsRouter.post("/", (req, res) => {
   // Création d'un id

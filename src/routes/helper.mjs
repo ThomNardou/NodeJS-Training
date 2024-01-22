@@ -8,9 +8,20 @@ const success = (message, data) => {
 };
 
 const getUniqueId = () => {
-  const productsIds = products.map((product) => product.id);
-  const maxId = productsIds.reduce((a, b) => Math.max(a, b));
+  let productsIds = [];
+
+  products.forEach((product) => {
+    productsIds.push(product.id);
+  });
+
+  let maxId = Math.max(...productsIds);
   const uniqueId = maxId + 1;
   return uniqueId;
+
+  // const maxId = productsIds.reduce((a, b) => {
+  //   console.log(a + " " + b);
+  //   Math.max(a, b);
+  // });
+  
 };
 export { success, getUniqueId };
