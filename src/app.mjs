@@ -28,6 +28,11 @@ initDB()
 
 app.use("/api/products", productsRouter);
 
+app.use(({res}) => {
+  const message = "Impossible de trouver la resource demandée ! veuillez saisir une autre URL (404)"
+  res.status(404).json(message);
+})
+
 app.listen(port, () => {
   console.log(`Exemple app listening on port http://localhost:${port}`);
 });

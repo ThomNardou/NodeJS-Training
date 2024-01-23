@@ -23,4 +23,4 @@ const ProductModel = (sequelize, DataTypes) => {  // = Mock-Products.mjs
   );
 };
 
-export { ProductModel };
+export { ProductModel }
