@@ -22,6 +22,7 @@ sequelize
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 
 import { productsRouter } from "./routes/products.mjs";
+
 initDB()
 
 

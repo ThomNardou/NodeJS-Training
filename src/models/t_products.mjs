@@ -1,4 +1,4 @@
-const ProductModel = (sequelize, DataTypes) => {
+const ProductModel = (sequelize, DataTypes) => {  // = Mock-Products.mjs
   return sequelize.define(
     "Products",
     {
