@@ -14,6 +14,10 @@ app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
 });
 
+app.get("/EasterEgg", (req, res) => {
+  res.send("Bravo vous avez trouvé un easter egg");
+})
+
 sequelize
   .authenticate()
   .then(() =>
@@ -23,15 +27,14 @@ sequelize
 
 import { productsRouter } from "./routes/products.mjs";
 
-initDB()
-
+initDB();
 
 app.use("/api/products", productsRouter);
 
-app.use(({res}) => {
-  const message = "Impossible de trouver la resource demandée ! veuillez saisir une autre URL (404)"
+app.use(({ res }) => {
+  const message = "Impossible de trouver la resource demandée ! veuillez saisir une autre URL (404)";
   res.status(404).json(message);
-})
+});
 
 app.listen(port, () => {
   console.log(`Exemple app listening on port http://localhost:${port}`);
