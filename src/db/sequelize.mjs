@@ -18,6 +18,7 @@ const Product = ProductModel(sequelize, DataTypes)
 
 let initDB =  () => {
     return sequelize
+    // Demande à sequelize d'executer une action sur la base de donnée (ouvrir la connection)
     .sync({force: true})
     .then(() => {
         importProducts();

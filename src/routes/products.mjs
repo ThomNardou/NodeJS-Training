@@ -9,6 +9,7 @@ const productsRouter = express();
 ///////////////////////////////////////////////////////////////////////// GET /////////////////////////////////////////////////////////////////////////
 
 productsRouter.get("/", (req, res) => {
+  // Si on a pas mis de paramètre
   if (req.query.name) {
     if (req.query.name.length < 2) {
       const message = `Le terme de la recherche doit contenir au moins 2 caractères`;
@@ -20,6 +21,7 @@ productsRouter.get("/", (req, res) => {
       limit = parseInt(req.query.limit);
     }
 
+    // Permet d'arreter l'execution de la fonction (on l'a mis là pour faire beau)
     return Product.findAndCountAll({
       where: { name: { [Op.like]: `%${req.query.name}%` } },
       limit: limit,
@@ -115,6 +117,8 @@ productsRouter.delete("/:id", (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////// UPDATE /////////////////////////////////////////////////////////////////////////
 productsRouter.put("/:id", (req, res) => {
+
+  // Va récuper la valeur du ":id"
   const productId = req.params.id;
 
   Product.update(req.body, { where: { id: productId } })

@@ -19,13 +19,17 @@ app.get("/EasterEgg", (req, res) => {
 })
 
 sequelize
+  // Va regarder si la connection a pu se faire
   .authenticate()
+  // Si elle a pu se connecter
   .then(() =>
     console.log("La connexion à la base de données a bien été établie")
   )
+  // Elle a pas pu se connecter
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 
 import { productsRouter } from "./routes/products.mjs";
+
 
 initDB();
 
