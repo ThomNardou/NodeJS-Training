@@ -3,12 +3,13 @@ import { success } from "./helper.mjs";
 import { Product, sequelize } from "../db/sequelize.mjs";
 import { ProductModel } from "../models/t_products.mjs";
 import { DataTypes, ValidationError, where, Op } from "sequelize";
+import { auth } from "../auth/auth.mjs";
 
 const productsRouter = express();
 
 ///////////////////////////////////////////////////////////////////////// GET /////////////////////////////////////////////////////////////////////////
 
-productsRouter.get("/", (req, res) => {
+productsRouter.get("/", auth, (req, res) => {
   // Si on a pas mis de paramètre
   if (req.query.name) {
     if (req.query.name.length < 2) {
@@ -44,7 +45,7 @@ productsRouter.get("/", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////// GET BY ID /////////////////////////////////////////////////////////////////////////
-productsRouter.get("/:id", (req, res) => {
+productsRouter.get("/:id", auth, (req, res) => {
   const productID = req.params.id;
 
   Product.findByPk(productID)
@@ -68,7 +69,7 @@ productsRouter.get("/:id", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////// INSERT /////////////////////////////////////////////////////////////////////////
-productsRouter.post("/", (req, res) => {
+productsRouter.post("/", auth, (req, res) => {
   Product.create(req.body)
 
     .then((products) => {
@@ -87,7 +88,7 @@ productsRouter.post("/", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////////////////////////
-productsRouter.delete("/:id", (req, res) => {
+productsRouter.delete("/:id", auth, (req, res) => {
   const productId = req.params.id;
 
   Product.findByPk(productId).then((deletedProduct) => {
@@ -116,7 +117,7 @@ productsRouter.delete("/:id", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////// UPDATE /////////////////////////////////////////////////////////////////////////
-productsRouter.put("/:id", (req, res) => {
+productsRouter.put("/:id", auth, (req, res) => {
 
   // Va récuper la valeur du ":id"
   const productId = req.params.id;

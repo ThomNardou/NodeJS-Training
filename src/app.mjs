@@ -1,8 +1,20 @@
 import express from "express";
 import { sequelize, initDB, Product } from "./db/sequelize.mjs";
+import { productsRouter } from "./routes/products.mjs";
+import { loginRouter } from "./routes/login.mjs";
+import { swaggerSpec } from "./swagger.mjs";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 const port = 3000;
+
+
+// Route pour accéder à la documentation Swagger
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 
 app.use(express.json());
 
@@ -16,7 +28,7 @@ app.get("/api/", (req, res) => {
 
 app.get("/EasterEgg", (req, res) => {
   res.send("Bravo vous avez trouvé un easter egg");
-})
+});
 
 sequelize
   // Va regarder si la connection a pu se faire
@@ -28,15 +40,14 @@ sequelize
   // Elle a pas pu se connecter
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 
-import { productsRouter } from "./routes/products.mjs";
-
-
 initDB();
 
 app.use("/api/products", productsRouter);
+app.use("/api/login", loginRouter);
 
 app.use(({ res }) => {
-  const message = "Impossible de trouver la resource demandée ! veuillez saisir une autre URL (404)";
+  const message =
+    "Impossible de trouver la resource demandée ! veuillez saisir une autre URL (404)";
   res.status(404).json(message);
 });
 
